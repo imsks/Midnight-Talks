@@ -21,32 +21,25 @@ connection.once("open", () => {
   console.log("MongoDB database connection established successfully");
 });
 
-const app = express();
-
+const app = require("./app");
 const server = http.createServer(app);
-
 const io = socketIo(server);
-
-// const getApiAndEmit = "TODO";
-
-let interval;
+app.set("socketio", io);
 
 io.on("connection", (socket) => {
   console.log("New client connected");
-  // if (interval) {
-  //   clearInterval(interval);
-  // }
-  getApiAndEmit(socket);
+
+  // getApiAndEmit(socket);
   socket.on("disconnect", () => {
     console.log("Client disconnected");
   });
 });
 
-const getApiAndEmit = (socket) => {
-  const response = "Sachin";
-  // Emitting a new message. Will be consumed by the client
-  socket.emit("FromAPI", response);
-};
+// const getApiAndEmit = (socket) => {
+//   const response = "Sachin";
+//   // Emitting a new message. Will be consumed by the client
+//   socket.emit("test", response);
+// };
 
 server.listen(PORT, () =>
   console.log(`Server has started on port localhost:${PORT}`)

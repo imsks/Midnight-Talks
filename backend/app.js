@@ -1,6 +1,8 @@
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
+// const io = require("./socket").getIO();
+const chat = require("./routes/chat");
 
 const router = express.Router();
 
@@ -14,8 +16,6 @@ app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 
-router.get("/", (req, res) => {
-  res.status(200).send({ response: "I am alive" });
-});
+app.use("/api/chat", chat);
 
 module.exports = app;
